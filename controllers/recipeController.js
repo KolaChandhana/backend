@@ -8,25 +8,15 @@ const createRecipe = async (req, res) => {
             category,
             ingredients,
             steps,
-            imageURI,
             cookingTime,
             isPublic,
         } = req.body;
-        // VALIDATION
-        if (
-            !title ||
-            !description ||
-            !category ||
-            !ingredients ||
-            !steps ||
-            !cookingTime
-        ){
-            return res.status(400).json({
-                message: "All required fields must be filled",
-            });
-        }
-        // CREATE NEW RECIPE
-        const newRecipe = new Recipe({
+
+        const imageURI = req.file
+        ? `/uploads/${req.file.filename}`
+        : "";
+
+        const recipe = new Recipe({
             title,
             description,
             category,
@@ -35,17 +25,14 @@ const createRecipe = async (req, res) => {
             imageURI,
             cookingTime,
             isPublic,
-            createdBy: req.userId,
+            user: req.user.id,
         });
-        await newRecipe.save();
-        res.status(201).json({
-            message: "Recipe Created Successfully",
-            recipe: newRecipe,
-        });
+
+        await recipe.save();
+
+        res.status(201).json(recipe);
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
-        });
+        res.status(500).json({ message: error.message });
     }
 };
 const getPublicRecipes = async (req, res) => {
