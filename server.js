@@ -6,7 +6,10 @@ const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const app = express();
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://your-frontend-name.onrender.com"
+    ],
     credentials: true,
 }));
 app.use(express.json());
