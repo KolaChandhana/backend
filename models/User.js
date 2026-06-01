@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
         validate: {
-            validator: function(value) {
+            validator: function(value) { 
+                
                 return /^[0-9]{10}$/.test(value);
             },
             message: "Phone must be exactly 10 digits",
