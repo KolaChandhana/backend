@@ -234,10 +234,11 @@ const loginUser = async (req, res) => {
             },
         });
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
-        });
-    }
+    console.error("LOGIN ERROR:", error);
+    res.status(500).json({
+        message: error.message,
+    });
+}
 };
 module.exports = {
     registerUser,
