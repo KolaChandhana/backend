@@ -32,9 +32,7 @@ const registerUser = async (req, res) => {
                 message:
                     "Password must include uppercase, lowercase, number, special character",
             });
-        }const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+        }
 // REGISTER USER
 const registerUser = async (req, res) => {
     try {
