@@ -69,10 +69,8 @@ const updateRecipe = async (req, res) => {
                 message: "Recipe not found",
             });
         }
-        if (recipe.createdBy.toString() !== req.userId){
-            return res.status(403).json({
-                message: "Unauthorized",
-            });
+        if (!recipe.createdBy || recipe.createdBy.toString() !== req.userId) {
+            return res.status(403).json({ message: "Unauthorized" });
         }
         const updatedRecipe = await Recipe.findByIdAndUpdate(
             req.params.id,
