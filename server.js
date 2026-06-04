@@ -6,8 +6,17 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const app = express();
+const allowedOrigins = [
+  "https://recipe-frontend-bs9e.onrender.com"
+];
 app.use(cors({
-  origin: "https://recipe-frontend-bs9e.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
