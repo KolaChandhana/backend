@@ -25,7 +25,7 @@ const createRecipe = async (req, res) => {
             imageURI,
             cookingTime,
             isPublic,
-            user: req.user.id,
+            createdBy: req.userId
         });
 
         await recipe.save();
@@ -69,7 +69,7 @@ const updateRecipe = async (req, res) => {
                 message: "Recipe not found",
             });
         }
-        if (recipe.createdBy.toString() !== req.user.id){
+        if (recipe.createdBy.toString() !== req.userId){
             return res.status(403).json({
                 message: "Unauthorized",
             });
